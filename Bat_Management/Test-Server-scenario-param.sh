@@ -31,7 +31,7 @@ write_log "INFO" "Remote Test:Remote scenario Test Begin-----------------------"
 echo "Remote Test:start the remote node..."
 
 if [ $# -ne 2 ];then
-    echo "Parameter error,usage:Test-Server-scenario-param.sh ServerIP cmdLine"
+    echo "Parameter error,usage:$0 ServerIP cmdLine"
     exit 1
 fi
 

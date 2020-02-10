@@ -10,6 +10,7 @@ ServerIP=''
 IP_List_File='hostlist.txt'
 #tmpIP_List_File='hostlist_filter.tmp'
 tmpIP_List_File="${IP_List_File}.tmp"
+output_file=output_scenario.file
 #-----------------------------------------------------------------
 retCode=0
 success=0
@@ -36,7 +37,8 @@ do_command()
 		ServerIP=$host
 		echo "ServerIP: [$ServerIP]"
 
-                sh Test-Server-scenario-param.sh $ServerIP $scenarioLine > /dev/null 2>&1
+                #sh Test-Server-scenario-param.sh $ServerIP $scenarioLine > /dev/null 2>&1
+                sh Test-Server-scenario-param.sh $ServerIP $scenarioLine >> $output_file
                 retCode=$?
 
                 if [ $retCode -eq 0 ]; then
@@ -77,6 +79,7 @@ do_command()
 rm -f ip_server_scenario_test_ok.file
 rm -f ip_server_scenario_test_error.file
 rm -f ip_server_scenario_test_result.file
+rm -f $output_file
 #Delete the space lines and comment lines
 sed '/^#.*\|^[[:space:]]*$/d' $IP_List_File > $tmpIP_List_File
 
