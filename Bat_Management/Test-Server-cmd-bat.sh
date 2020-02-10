@@ -29,7 +29,7 @@ do_command()
 		ServerIP=$host
 		echo "ServerIP: [$ServerIP]"
 
-                sh Test-Server-cmd-param.sh $ServerIP $cmdLine > /dev/null 2>&1
+                sh Test-Server-cmd-param.sh $ServerIP "$cmdLine" > /dev/null 2>&1
                 retCode=$?
 
                 if [ $retCode -eq 0 ]; then
