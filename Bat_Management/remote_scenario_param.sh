@@ -60,7 +60,7 @@ cmdLine='pwd'
 #-----------------------------------------------------------------------
 trap - ERR
 
-sh Test-Server-cmd-param.sh $ServerIP $cmdLine
+sh remote_cmd_param.sh $ServerIP $cmdLine
 retCode=$?
 
 trap 'exit_err $LINENO $?'     ERR

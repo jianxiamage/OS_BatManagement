@@ -9,6 +9,7 @@ ServerIP=''
 IP_List_File='hostlist.txt'
 #tmpIP_List_File='hostlist_filter.tmp'
 tmpIP_List_File="${IP_List_File}.tmp"
+output_file=output_cmd.file
 #-----------------------------------------------------------------
 retCode=0
 success=0
@@ -29,7 +30,8 @@ do_command()
 		ServerIP=$host
 		echo "ServerIP: [$ServerIP]"
 
-                sh Test-Server-cmd-param.sh $ServerIP "$cmdLine" > /dev/null 2>&1
+                #sh remote_cmd_param.sh $ServerIP "$cmdLine" > /dev/null 2>&1
+                sh remote_cmd_param.sh $ServerIP "$cmdLine" > $output_file
                 retCode=$?
 
                 if [ $retCode -eq 0 ]; then

@@ -2,19 +2,19 @@
 1.主要功能
   1.1 远程执行命令
       功能简介：用户可以通过给定参数:(目标IP 指定命令),执行脚本,达到远程执行命令的目的 
-      执行脚本:Test-Server-cmd-param.sh
+      执行脚本:remote_cmd_param.sh
 
   1.2 批量远程执行命令
       功能简介:用户可以通过给定文件:hostlist.txt 写入自定义的ip列表,执行脚本，达到批量远程执行命令的目的
-      执行脚本:Test-Server-cmd-bat.sh
+      执行脚本:remote_cmd_bat.sh
 
   1.3 远程执行脚本
       功能简介：用户可以通过给定参数:(目标IP 指定脚本或默认待定),执行脚本,达到远程执行脚本的目的
-      执行脚本:Test-Server-scenario-param.sh
+      执行脚本:remote_scenario_param.sh
 
   1.4 批量远程执行脚本
       功能简介:用户可以通过给定文件:hostlist.txt 写入自定义的ip列表,执行脚本，达到批量远程执行脚本的目的
-      执行脚本:Test-Server-scenario-bat.sh
+      执行脚本:remote_scenario_bat.sh
 
 2.拓展功能
   关于批量执行脚本的功能有以下的拓展，例如：
@@ -53,7 +53,7 @@
 6.常见操作
   6.1 远程执行脚本
       获取远程机器的系统信息
-      sh Test-Server-scenario-param.sh 10.20.42.32 common_cases/get_OSInfo.sh
+      sh remote_scenario_param.sh 10.20.42.32 common_cases/get_OSInfo.sh
       ----目录common_cases下存放常用的脚本
 
   6.2 

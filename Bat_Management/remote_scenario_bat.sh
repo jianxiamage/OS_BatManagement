@@ -37,8 +37,8 @@ do_command()
 		ServerIP=$host
 		echo "ServerIP: [$ServerIP]"
 
-                #sh Test-Server-scenario-param.sh $ServerIP $scenarioLine > /dev/null 2>&1
-                sh Test-Server-scenario-param.sh $ServerIP $scenarioLine >> $output_file
+                #sh remote_scenario_param.sh $ServerIP $scenarioLine > /dev/null 2>&1
+                sh remote_scenario_param.sh $ServerIP $scenarioLine >> $output_file
                 retCode=$?
 
                 if [ $retCode -eq 0 ]; then
