@@ -20,10 +20,10 @@ serverCmdTag=1
 ipcount=0
 #-----------------------------------------------------------------
 
-if [ $# -ne 1 ];then
-    echo "Parameter error,usage:$0 file_name"
-    exit 1
-fi
+#if [ $# -ne 1 ];then
+#    echo "Parameter error,usage:$0 file_name"
+#    exit 1
+#fi
 
 
 do_command()
@@ -91,9 +91,8 @@ sed '/^#.*\|^[[:space:]]*$/d' $IP_List_File > $tmpIP_List_File
 
 #local_ip=10.20.42.41
 
-#Example:execute scenario_test.sh
-#scenarioLine='scenario_test.sh'
-scenarioLine=$1
+#Example:execute cmd :pwd
+scenarioLine='scenario_test.sh'
 
 echo -e "\033[31m执行脚本: $scenarioLine \033[0m"
 do_command $scenarioLine

@@ -5,7 +5,7 @@ cmdStr=''
 retCode=0
 #----------------------------------------------------------------
 cmdEndStr="Remote Test:Remote scenario Test End-------------------------"
-ServerIP=''
+remoteIP=''
 ServerUser='root'
 ServerPass='loongson'
 cmdLine=''
@@ -31,7 +31,7 @@ write_log "INFO" "Remote Test:Remote scenario Test Begin-----------------------"
 echo "Remote Test:start the remote node..."
 
 if [ $# -ne 2 ];then
-    echo "Parameter error,usage:$0 ServerIP cmdLine"
+    echo "Parameter error,usage:$0 remoteIP cmdLine"
     exit 1
 fi
 
@@ -52,26 +52,26 @@ fi
 echo "Remote connection Test..."
 
 #-----------------------------------------------------------------------
-ServerIP=$1
+remoteIP=$1
 scenarioLine=$2
-#sh RemoteConnTest-param.sh $ServerIP $cmdLine
+#sh RemoteConnTest-param.sh $remoteIP $cmdLine
 
 cmdLine='pwd'
 #-----------------------------------------------------------------------
 trap - ERR
 
-sh remote_cmd_param.sh $ServerIP $cmdLine
+sh remote_cmd_param.sh $remoteIP $cmdLine > /dev/null 2>&1
 retCode=$?
 
 trap 'exit_err $LINENO $?'     ERR
 
 if [ $retCode -eq 0 ]; then
-  cmdStr="=====connect to $ServerIP success."
+  cmdStr="=====connect to $remoteIP success."
   echo $cmdStr
   write_log "INFO" "${cmdStr}"
   echo ""
 else
-  cmdStr="Error:connect to $ServerIP failed!Please check it!"
+  cmdStr="Error:connect to $remoteIP failed!Please check it!"
   echo $cmdStr
   write_log "ERROR" "${cmdStr}"
   exit 1
@@ -80,17 +80,17 @@ fi
 #====================================================================================================
 
 curtimeBegin=`echo $(date +"%F %T")`
-echo "===================current time is:$curtimeBegin"
-echo ""
+#echo "===================current time is:$curtimeBegin"
+#echo ""
 
 #scenarioLine='/tmp/3B_Ctrl/3B_off.sh'
 
 #sshpass -p 'loongson' ssh  root@$10.20.42.220 /tmp/3B_Ctrl/3B_off.sh
-#sshpass -p $ServerPass ssh $ServerUser@$ServerIP $cmdLine
+#sshpass -p $ServerPass ssh $ServerUser@$remoteIP $cmdLine
 
 trap - ERR
 
-sshpass -p $ServerPass ssh $ServerUser@$ServerIP -C "/bin/bash" <$scenarioLine
+sshpass -p $ServerPass ssh $ServerUser@$remoteIP -C "/bin/bash" <$scenarioLine
 retCode=$?
 echo "=====remote execute:[$scenarioLine],retCode: $retCode"
 
@@ -109,5 +109,3 @@ else
   write_log "ERROR" "${cmdStr}"
   exit 1
 fi
-
-

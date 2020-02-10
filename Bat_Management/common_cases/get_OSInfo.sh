@@ -18,10 +18,10 @@ BuildInfoFile=/home/os_info.txt
 OSInfoFile=/home/OSInfo_Detail.txt
 
 os_type=`cat ${BuildInfoFile} |grep Product | awk -F"=" '{print $2}'`
-echo 系统分类:${os_type} > ${OSInfoFile}
+echo 系统分类:[${os_type}] > ${OSInfoFile}
 os_version=`cat ${BuildInfoFile} |grep UUID | awk -F"=" '{print $2}'`
-echo 系统版本:${os_version} >> ${OSInfoFile}
+echo 系统版本:[${os_version}] >> ${OSInfoFile}
 kernel_version=`cat ${BuildInfoFile} |grep Kernel_Version | awk -F"=" '{print $2}'`
-echo 内核版本:${kernel_version} >> ${OSInfoFile}
+echo 内核版本:[${kernel_version}] >> ${OSInfoFile}
 
 cat ${OSInfoFile}

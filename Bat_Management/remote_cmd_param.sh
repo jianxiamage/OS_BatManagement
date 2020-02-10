@@ -5,7 +5,7 @@ cmdStr=''
 retCode=0
 #----------------------------------------------------------------
 cmdEndStr="Remote Test:Remote cmd Test End---------------------------"
-ServerIP='10.20.42.220'
+remoteIP='10.20.42.220'
 ServerUser='root'
 ServerPass='loongson'
 cmdLine=''
@@ -31,7 +31,16 @@ write_log "INFO" "Remote Test:Remote cmd Test Begin------------------------"
 #Exit the script if an error happens
 #set -e
 
-ServerIP=$1
+if [ $# -ne 2 ];then
+    cmdStr="Error:Parameter error,usage:$0 IP cmdLine!"
+    echo $cmdStr
+    write_log "ERROR" "${cmdStr}"
+    exit 1
+fi
+
+#====================================================================================================
+
+remoteIP=$1
 cmdLine=$2
 #====================================================================================================
 #sshpass -p 'loongson' ssh root@10.20.42.220 'pwd'
@@ -43,21 +52,21 @@ cmdLine=$2
 
 #====================================================================================================
 
-#sh check-boot.sh $ServerIP
+#sh check-boot.sh $remoteIP
 
 trap - ERR
 
-sh check-boot.sh $ServerIP
+sh check-boot.sh $remoteIP
 retCode=$?
 
 trap 'exit_err $LINENO $?'     ERR
 
 if [ $retCode -eq 0 ]; then
-  cmdStr="=====Connect to IP:$ServerIP success."
+  cmdStr="=====Connect to IP:$remoteIP success."
   #echo $cmdStr
   write_log "INFO" "${cmdStr}"
 else
-  cmdStr="Error:Connect to IP:$ServerIP failed!Please check it!"
+  cmdStr="Error:Connect to IP:$remoteIP failed!Please check it!"
   #echo $cmdStr
   write_log "ERROR" "${cmdStr}"
   exit 1
@@ -69,13 +78,13 @@ curtimeBegin=`echo $(date +"%F %T")`
 echo "===================current time is:$curtimeBegin"
 
 #cmdLine='pwd'
-#sshpass -p $ServerPass ssh $ServerUser@$ServerIP $cmdLine
+#sshpass -p $ServerPass ssh $ServerUser@$remoteIP $cmdLine
 
 echo "=====remote execute cmd:[$cmdLine] begin..."
 
 trap - ERR
 
-sshpass -p $ServerPass ssh $ServerUser@$ServerIP $cmdLine
+sshpass -p $ServerPass ssh $ServerUser@$remoteIP $cmdLine
 retCode=$?
 #echo "=====remote execute cmd:[pwd].retCode:$retCode"
 

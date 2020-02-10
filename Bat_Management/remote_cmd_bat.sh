@@ -4,7 +4,7 @@
 username=root
 passwd=loongson
 
-ServerIP=''
+remoteIP=''
 #-----------------------------------------------------------------
 IP_List_File='hostlist.txt'
 #tmpIP_List_File='hostlist_filter.tmp'
@@ -19,6 +19,12 @@ cmdLine=''
 serverCmdTag=1
 ipcount=0
 #-----------------------------------------------------------------
+
+if [ $# -ne 1 ];then
+    echo "Parameter error,usage:$0 cmdLine"
+    exit 1
+fi
+
 do_command()
 {
         #tmpIP_List_File='hostlist_filter.tmp'
@@ -27,29 +33,29 @@ do_command()
         do
 		echo "--------------------------------------------------------"
                 ipcount=$(($ipcount+1))
-		ServerIP=$host
-		echo "ServerIP: [$ServerIP]"
+		remoteIP=$host
+		echo "remoteIP: [$remoteIP]"
 
-                #sh remote_cmd_param.sh $ServerIP "$cmdLine" > /dev/null 2>&1
-                sh remote_cmd_param.sh $ServerIP "$cmdLine" > $output_file
+                #sh remote_cmd_param.sh $remoteIP "$cmdLine" > /dev/null 2>&1
+                sh remote_cmd_param.sh $remoteIP "$cmdLine" > $output_file
                 retCode=$?
 
                 if [ $retCode -eq 0 ]; then
                   serverCmdTag=0
                   statTag='OK'
                   success=$(($success+1))
-                  echo -e "\n\033[32m$ServerIP | success\033[0m\n"
-                  result="[$success] IP:[$ServerIP],cmd:[$cmdLine],result:[OK]"
-                  echo $ServerIP >> ip_server_cmd_test_ok.file
-                  result_all="[$ipcount] IP:[$ServerIP],cmd:[$cmdLine],result:[$statTag]"
+                  echo -e "\n\033[32m$remoteIP | success\033[0m\n"
+                  result="[$success] IP:[$remoteIP],cmd:[$cmdLine],result:[OK]"
+                  echo $remoteIP >> ip_server_cmd_test_ok.file
+                  result_all="[$ipcount] IP:[$remoteIP],cmd:[$cmdLine],result:[$statTag]"
                   echo $result_all >> ip_server_cmd_test_result.file
                 else
                   statTag='OK' 
                   failed=$(($failed+1))
-                  echo -e "\n\033[32m$ServerIP | failed\033[0m\n"
-                  result="[$failed] IP:[$ServerIP],cmd:[$cmdLine],result:[ERROR]"
+                  echo -e "\n\033[32m$remoteIP | failed\033[0m\n"
+                  result="[$failed] IP:[$remoteIP],cmd:[$cmdLine],result:[ERROR]"
                   echo $Server >> ip_server_cmd_test_error.file
-                  result_all="[$ipcount] IP:[$ServerIP],cmd:[$cmdLine],result:[$statTag]"
+                  result_all="[$ipcount] IP:[$remoteIP],cmd:[$cmdLine],result:[$statTag]"
                   echo $result_all >> ip_server_cmd_test_result.file
                 fi
 
